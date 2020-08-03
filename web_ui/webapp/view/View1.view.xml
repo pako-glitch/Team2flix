@@ -37,7 +37,7 @@
 											</f:FormContainer>
 										</f:formContainers>
 									</f:Form>
-									<t:Table id="table" rows="{ path: 'Modello>/Puntata'}" selectionMode="MultiToggle" visibleRowCount="6">
+									<t:Table id="table" rows="{ path: 'Modello>/Puntate'}" selectionMode="MultiToggle" visibleRowCount="6">
 										<t:extension>
 											<!--<OverflowToolbar>-->
 											<!--	<Title id="title" text="{i18n>titleslave}"/>-->
@@ -60,7 +60,7 @@
 											<t:Column>
 												<Label text="{i18n>titlepuntata}"/>
 												<t:template>
-													<Text text="{Modello>titoloPuntata}" wrapping="false"/>
+													<Text text="{Modello>titolopuntata}" wrapping="false"/>
 												</t:template>
 											</t:Column>
 											<t:Column>
@@ -81,10 +81,10 @@
 							</detailPages>
 							<masterPages>
 								<Page id="master" title="{i18n>titlemaster}" backgroundDesign="List" class="sapUiStdPage" showNavButton="true">
-									<SearchField placeholder="Filter..." search="filterGlobally" width="15rem" enableSuggestions="true"/>
-									<List itemPress=".onListItemPress" items="{path:'Modello>/series'}">
+									<SearchField placeholder="Filter..." search="onFilterInvoices" width="15rem" enableSuggestions="true"/>
+									<List itemPress="onListItemPress" items="{path:'Modello>/Serie'}">
 										<items>
-											<StandardListItem custom:to="detail" type="Navigation" title="{Modello>titoloSerie}" icon="sap-icon://employee" id="item1"/>
+											<StandardListItem custom:to="detail" type="Navigation" title="{Modello>titoloserie}" icon="sap-icon://employee" id="item1"/>
 										</items>
 									</List>
 								</Page>

@@ -1,10 +1,115 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="web_ui.web_ui.controller.View2">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:t="sap.ui.table" controllerName="web_ui.web_ui.controller.View2" xmlns:l="sap.ui.layout.form">
 	<App>
 		<pages>
-			<Page title="Title">
+			<Page title="Nuova serie">
+				<Panel expanded="true" headerText="Inserisci informazioni serie" width="auto" class="sapUiResponsiveMargin">
+					    <content>
+					    	<l:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form1">
+							<l:formContainers>
+							<l:FormContainer id="__container1">
+							<l:formElements>
+								<l:FormElement label="Titolo " id="label1">
+								<l:fields>
+								<Input width="50%" id="input1" required="true"/>
+								</l:fields>
+								</l:FormElement>
+								<l:FormElement label="Genere " id="label2">
+								<l:fields>
+								<Input width="50%" id="input2"/>
+								</l:fields>
+								</l:FormElement>
+								<l:FormElement label="Anno " id="label3">
+								<l:fields>
+								<Input width="50%" id="input3"/>
+								</l:fields>
+								</l:FormElement>
+								<l:FormElement label="Regista " id="label7">
+								<l:fields>
+								<Input width="50%" id="input7"/>
+								</l:fields>
+								</l:FormElement>
+					        </l:formElements>
+							</l:FormContainer>
+							</l:formContainers>
+							<l:layout>
+							<l:ResponsiveGridLayout id="__layout1"/>
+							</l:layout>
+							</l:Form>
+					</content>
+				</Panel>
+				<Panel expandable="true" expanded="true" headerText="Inserisci informazioni serie" width="auto" class="sapUiResponsiveMargin">
+					    <content>
+					    	<l:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form2">
+							<l:formContainers>
+							<l:FormContainer id="__container2">
+							<l:formElements>
+								<l:FormElement label="Episodio " id="label4">
+								<l:fields>
+								<Input width="50%" id="input4" required="true"/>
+								</l:fields>
+								</l:FormElement>
+								<l:FormElement label="Stagione " id="label5">
+								<l:fields>
+								<Input width="50%" id="input5" required="true"/>
+								</l:fields>
+								</l:FormElement>
+								<l:FormElement label="Titolo " id="label6">
+								<l:fields>
+								<Input width="50%" id="input6"/>
+								</l:fields>
+								</l:FormElement>
+					        </l:formElements>
+							</l:FormContainer>
+							</l:formContainers>
+							<l:layout>
+							<l:ResponsiveGridLayout id="__layout2"/>
+							</l:layout>
+							</l:Form>
+					</content>
+				</Panel>
+			<Toolbar height="3rem">
+			<Button icon="sap-icon://add" text="Aggiungi" type="Emphasized" press="onAdd"/></Toolbar>
+			<Panel expandable="true" expanded="true" width="auto" class="sapUiResponsiveMargin">
+					<headerToolbar>
+						<Toolbar height="3rem">
+							<Title text="Episodi"/>
+								<ToolbarSpacer/>
+									<Button icon="sap-icon://sys-minus" text="Puntata" type="Reject" press="onDelete"/>
+						</Toolbar>
+					</headerToolbar>
 				<content>
-				    <Button xmlns="sap.m" xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" text="Back" id="button0" press="action" action:wiring="\{'press':\{'navigation':\{'routeName':'View1'\}\}\}"/>
-				</content>
+					<Table id="puntate" items="{oDataModel>Item}" mode="MultiSelect" growing="true" growingThreshold="4" growingScrollToLoad="false">
+						<items>
+							<ColumnListItem id="itemlist">
+								<cells>
+									<Text text="{Episodio}" id="Episodio"/>
+									<Text text="{Stagione}" id="Stagione"/>
+									<Text text="{Titolo}" id="Titolo"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					<columns>
+						<Column id="episodio">
+							<header>
+								<Label text="Episodio" id="_Episodio"/>
+							</header>
+						</Column>
+						<Column id="stagione">
+							<header>
+								<Label text="Stagione" id="_Stagione"/>
+							</header>
+						</Column>
+						<Column id="titolo">
+							<header>
+								<Label text="Titolo" id="_Titolo"/>
+							</header>
+						</Column>
+					</columns>
+				</Table>
+			</content>
+		</Panel>
+			<Button icon="sap-icon://save" text="Salva" press="onSave"/>
+			<Button text="Annulla"/>
 			</Page>
 		</pages>
 	</App>

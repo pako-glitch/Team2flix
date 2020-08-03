@@ -1,8 +1,9 @@
-sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast"], function (Controller, MessageToast) {
+sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast", "sap/ui/model/Filter","sap/ui/model/FilterOperator"], 
+function (Controller, MessageToast, Filter, FilterOperator) {
 	"use strict";
 	return Controller.extend("web_ui.web_ui.controller.View1", {
 		onInit: function () {
-			var oModel = new sap.ui.model.odata.v2.ODataModel("/my_dest/xsodata/serietv.xsodata", false);
+			var oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
 			//my_dest è la destinazione che avrei creato in dev->destinations con l'URL ottenuto da core_xsjs after deploy (xs-app resources)
 			oModel.read("/Serie", {
 				success: function (oRetrievedResult) {
@@ -14,6 +15,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast"], function (Co
 					MessageToast.show("Error");
 				}
 			});
+		},
+		
+		onListPressItem: function (oEvent) {
+		this.getView().bindElement({
+		path: oEvent.getParameter("listItem").getBindingContextPath(),
+			model: "oDataModel"
+		});
 		},
 		/**
 		 *@memberOf web_ui.web_ui.controller.View1
@@ -48,6 +56,17 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast"], function (Co
 					this.getOwnerComponent().getRouter().navTo(oNavigation.routeName);
 				}
 			}
+		},
+		
+		onFilterInvoices: function (oEvent) {
+			var aFilter = [];
+			var sQuery = oEvent.getParameter("query");
+			if (sQuery) {
+				aFilter.push(new aFilter("titoloserie", FilterOperator.Contains, sQuery));
+			}
+			var oList = this.getView().byId("Table");
+			var oBinding = oList.getBinding("rows");
+			oBinding.filter(aFilter);
 		}
 	});
 });

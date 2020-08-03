@@ -6,7 +6,110 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf web_ui.web_ui.view.View2
 		 */
-		onInit: function () {},
+		onInit: function () {
+		// var testData = [];
+		// var oModel = new sap.ui.model.json.JSONModel({
+		// data: testData
+		// });
+		// this.getView().setModel(oModel);
+		},
+		
+// 		onAdd: function() {
+// 		// Get the values of the header input fields
+// 		var epi = this.getView().byId("input4").getValue();
+// 		var sta = this.getView().byId("input5").getValue();
+// 		var tit = this.getView().byId("input6").getValue();
+		
+// 		// Push this entry into array and bind it to the table
+// 		var itemRow = {
+// 		episodio: epi,
+// 		stagione: sta,
+// 		titolo: tit
+// 		};
+		
+// 		var oModel = this.getView().byId("puntate").getModel();
+// 		var itemData = oModel.getProperty("/data");
+// 		// Append the data using .push
+// 		itemData.push(itemRow);
+		
+		
+// 		// Set Model
+// 		oModel.setData({
+// 		data: itemData
+// 		});
+		
+// 		// Clear the input fields.
+// 		this.getView().byId("input4").setValue("");
+// 		this.getView().byId("input5").setValue("");
+// 		this.getView().byId("input6").setValue("");
+// 		},
+		
+// 		onDelete: function(){
+// 		var oTable = this.getView().byId("puntate");
+// 		var oModel2 = oTable.getModel();
+// 		var aRows = oModel2.getData().data;
+// 		var aContexts = oTable.getSelectedContexts();
+		
+// // Loop backward from the Selected Rows
+ 
+// 		for (var i = aContexts.length - 1; i >= 0; i--) {
+// // Selected Row
+// 		var oThisObj = aContexts[i].getObject();
+ 
+// // $.map() is used for changing the values of an array.
+// // Here we are trying to find the index of the selected row
+// // refer - http://api.jquery.com/jquery.map/
+// 		var index = $.map(aRows, function(obj, index) {
+ 
+// 		if (obj === oThisObj) {
+// 		return index;
+// 		}
+// 		});
+ 
+// // The splice() method adds/removes items to/from an array
+// // Here we are deleting the selected index row
+// // https://www.w3schools.com/jsref/jsref_splice.asp
+ 
+// 		aRows.splice(index, 1);
+// 		}
+// 		// Set the Model with the Updated Data after Deletion
+// 		oModel2.setData({
+// 		data: aRows
+// 		});
+// 		// Reset table selection in UI5
+// 		oTable.removeSelections(true);
+// 		},
+		
+// 		onSave: function(){
+// 		//Create all the records added to table via Json model
+// 			var oTable = this.getView().byId("puntate");
+ 
+// 		// Get the table Model
+// 			var oModel = oTable.getModel();
+ 
+// 		// Get Items of the Table
+// 			var aItems = oTable.getItems();
+			
+// 		// Define an empty Array
+// 			var itemData = [];
+ 
+// 			for (var iRowIndex = 0; iRowIndex < aItems.length; iRowIndex++) {
+// 			var l_episodio = oModel.getProperty("Episodio", aItems[iRowIndex].getBindingContext());
+// 			var l_stagione = oModel.getProperty("Stagione", aItems[iRowIndex].getBindingContext());
+// 			var l_titolo = oModel.getProperty("Titolo", aItems[iRowIndex].getBindingContext());
+ 
+// 		itemData.push({
+// 		Episodio: l_episodio,
+// 		Stagione: l_stagione,
+// 		Titolo: l_titolo,
+// 		});
+// 	}
+// 	// Get the values of the header input fields
+// 		var Titolo = this.getView().byId("input1").getValue();
+// 		var Genere = this.getView().byId("input2").getValue();
+// 		var Anno = this.getView().byId("input3").getValue();
+// 		var Regista = this.getView().byId("input7").getValue();
+// 		},
 		/**
 		 *@memberOf web_ui.web_ui.controller.View2
 		 */
