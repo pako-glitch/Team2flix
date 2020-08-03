@@ -19,5 +19,11 @@
 		"destination": "core-xsjs-backend",
 		"authenticationType": "xsuaa"
 
+	}, {
+		"source": "^/flix_dest/(.*)$",
+		"target": "$1",
+		"authenticationType": "none",
+		"destination": "nodejs",
+		"csrfProtection": false
 	}]
 }

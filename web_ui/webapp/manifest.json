@@ -14,7 +14,6 @@
 			"version": "1.40.12"
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -31,7 +30,6 @@
 			"phone": true
 		}
 	},
-
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
@@ -61,9 +59,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -75,18 +75,42 @@
 				"controlId": "app",
 				"clearControlAggregation": false
 			},
-			"routes": [{
-				"name": "RouteView1",
-				"pattern": "RouteView1",
-				"target": ["TargetView1"]
-			}],
+			"routes": [
+				{
+					"name": "RouteView1",
+					"pattern": "RouteView1",
+					"target": [
+						"TargetView1"
+					]
+				},
+				{
+					"name": "View2",
+					"pattern": "View2",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"View2"
+					]
+				},
+				{
+					"name": "View1",
+					"pattern": "View1",
+					"target": [
+						"TargetView1"
+					]
+				}
+			],
 			"targets": {
 				"TargetView1": {
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
-					"viewId": "View1",
+					"viewId": "",
 					"viewName": "View1"
+				},
+				"View2": {
+					"viewType": "XML",
+					"viewName": "View2"
 				}
 			}
 		}

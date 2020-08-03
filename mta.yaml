@@ -1,10 +1,9 @@
 ID: Team2flix
 _schema-version: '2.1'
-parameters:
-  deploy_mode: html5-repo
-version: 1.0.1
+
+version: 1.0.2
 modules:
-  
+ 
   - name: db
     type: hdb
     path: db

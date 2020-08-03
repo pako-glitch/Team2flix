@@ -1,22 +1,14 @@
-sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast"], function (Controller, MessageToast) {
+sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
 	"use strict";
-	return Controller.extend("web_ui.web_ui.controller.View1", {
-		onInit: function () {
-			var oModel = new sap.ui.model.odata.v2.ODataModel("/my_dest/xsodata/serietv.xsodata", false);
-			//my_dest è la destinazione che avrei creato in dev->destinations con l'URL ottenuto da core_xsjs after deploy (xs-app resources)
-			oModel.read("/Serie", {
-				success: function (oRetrievedResult) {
-					var Model = new sap.ui.mode.json.JSONModel();
-					oModel.setData(oRetrievedResult);
-					this.getView().setModel(Model, "Modello");
-				},
-				error: function (oError) {
-					MessageToast.show("Error");
-				}
-			});
-		},
+	return Controller.extend("web_ui.web_ui.controller.View2", {
 		/**
-		 *@memberOf web_ui.web_ui.controller.View1
+		 * Called when a controller is instantiated and its View controls (if available) are already created.
+		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
+		 * @memberOf web_ui.web_ui.view.View2
+		 */
+		onInit: function () {},
+		/**
+		 *@memberOf web_ui.web_ui.controller.View2
 		 */
 		action: function (oEvent) {
 			var that = this;
