@@ -5,9 +5,9 @@ parameters:
 version: 1.0.0
 
 modules:
- - name: team2flix-approuter
+ - name: Team2flix-approuter
    type: approuter.nodejs
-   path: team2flix-approuter
+   path: Team2flix-approuter
    parameters:
       disk-quota: 256M
       memory: 256M
@@ -21,6 +21,13 @@ modules:
    requires:
     - name: Team2flix_html5_repo_host
 
+
+ - name: db
+   type: hdb
+   path: db
+   requires:
+    - name: hdi_db
+
 resources:
  - name: Team2flix_html5_repo_runtime
    parameters:
@@ -33,4 +40,13 @@ resources:
       service-plan: app-host
       service: html5-apps-repo
    type: org.cloudfoundry.managed-service
+
+
+ - name: hdi_db
+   parameters:
+      config:
+         schema: db
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container
 
