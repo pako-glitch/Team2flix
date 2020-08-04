@@ -22,8 +22,8 @@
 		"column_mappings": {
 			"titoloserie": 1,
 			"genere": 2,
-			"anno": 6,
-			"regista": 7
+			"anno": 3,
+			"regista": 4
 		}
 	},
 	{
@@ -47,9 +47,9 @@
 		},
 		"column_mappings": {
 			"POHeader.titoloserie": 1,
-			"titolopuntata": 3,
-			"stagione": 4,
-			"episodio": 5
+			"titolopuntata": 2,
+			"stagione": 3,
+			"episodio": 4
 		}
 	}]
 }

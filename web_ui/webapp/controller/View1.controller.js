@@ -4,7 +4,6 @@ function (Controller, MessageToast, Filter, FilterOperator) {
 	return Controller.extend("web_ui.web_ui.controller.View1", {
 		onInit: function () {
 			var oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
-			//my_dest è la destinazione che avrei creato in dev->destinations con l'URL ottenuto da core_xsjs after deploy (xs-app resources)
 			oModel.read("/Serie", {
 				success: function (oRetrievedResult) {
 					var Model = new sap.ui.mode.json.JSONModel();
