@@ -1,6 +1,6 @@
 ID: Team2flix
 _schema-version: '2.1'
-version: 0.0.1
+version: 0.0.3
 modules:
   - name: ui
     type: html5

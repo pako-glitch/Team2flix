@@ -15,7 +15,7 @@
 		},
 		"dataSources": {
 			"serie.xsodata": {
-				"uri": "/modello/xsodata/serie.xsodata/",
+				"uri": "/xsodata/serie.xsodata/",
 				"type": "OData",
 				"settings": {
 					"localUri": "localService/metadata.xml"
@@ -65,16 +65,6 @@
 				"settings": {
 					"bundleName": "Team2flix.ui.i18n.i18n"
 				}
-			},
-			"modello": {
-				"type": "sap.ui.model.odata.v2.ODataModel",
-				"settings": {
-					"defaultOperationMode": "Server",
-					"defaultBindingMode": "OneWay",
-					"defaultCountMode": "Request"
-				},
-				"dataSource": "serie.xsodata",
-				"preload": true
 			}
 		},
 		"resources": {
@@ -96,10 +86,28 @@
 			},
 			"routes": [
 				{
-					"name": "RouteView1",
-					"pattern": "RouteView1",
+					"name": "TargetView1",
+					"pattern": "",
 					"target": [
 						"TargetView1"
+					]
+				},
+				{
+					"name": "View2",
+					"pattern": "View2",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"View2"
+					]
+				},
+				{
+					"name": "View1",
+					"pattern": "View1",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"View1"
 					]
 				}
 			],
@@ -108,8 +116,21 @@
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
-					"viewId": "View1",
+					"viewId": "",
 					"viewName": "View1"
+				},
+				"View2": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "View2"
+				},
+				"View1": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "View1",
+					"viewId": "Home"
 				}
 			}
 		}

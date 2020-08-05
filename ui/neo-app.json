@@ -15,20 +15,7 @@
 			"name": "sapui5",
 			"entryPath": "/test-resources"
 		},
-		"description": "SAPUI5 Test Resources"
-	}, {
-		"path": "/modello",
-		"target": {
-			"type": "destination",
-			"name": "modello"
-		},
-		"description": "modello"
-	}, {
-		"path": "/flix_dest",
-		"target": {
-			"type": "destination",
-			"name": "flix_dest"
-		},
+
 		"description": "NodeJS destination"
 	}],
 	"sendWelcomeFileRedirect": true
