@@ -6,17 +6,22 @@ sap.ui.define([
 	return Controller.extend("Team2flix.ui.controller.View1", {
 		onInit: function () {
 			
+			var that = this;
 			var oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
-			var Model = new sap.ui.mode.json.JSONModel();
+			
 			oModel.read("/POHeader", {
 				success: function (oRetrievedResult) {
-					Model.setData(oRetrievedResult);
+					var results = oRetrievedResult;
+					//var Model = new sap.ui.mode.json.JSONModel();
+					that.getView().setModel(new sap.ui.model.JSON.JSONModel(results), "modello");
+					if(results.titoloserie!==undefined) {
+						that.getView().setModel(new sap.ui.model.JSON.JSONModel(results.titoloserie), "modello");
+					}
 				},
 				error: function (oError) {
 					MessageToast.show("View1 Error");
 				}
 			});
-			this.getView().setModel(Model, "modello");
 			//var oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
 			//oModel.read();
 			//var Model = new sap.ui.mode.json.JSONModel(oModel);
