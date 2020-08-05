@@ -1,0 +1,45 @@
+<mvc:View controllerName="Team2flix.ui.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>master}">
+					<content>
+						<Table noDataText="No Data" id="table0" items="{modello>/POHeader}">
+							<items>
+								<ColumnListItem type="Active" id="item0">
+									<cells>
+										<Text text="{modello>titoloserie}" id="text2"/>
+										<Text text="{modello>genere}" id="text3"/>
+										<Text text="{modello>anno}" id="text4"/>
+										<Text text="{modello>regista}" id="text5"/></cells>
+								</ColumnListItem>
+							</items>
+							<columns>
+								<Column id="column0">
+									<header>
+										<Label text="{i18n>titoloserie}" id="label0"/>
+									</header>
+								</Column>
+								<Column id="column1">
+									<header>
+										<Label text="{i18n>genere}" id="label1"/>
+									</header>
+								</Column>
+								<Column id="column2">
+									<header>
+										<Label text="{i18n>anno}" id="label2"/>
+									</header>
+								</Column>
+								<Column id="column3">
+									<header>
+										<Label text="{i18n>regista}" id="label3"/>
+									</header>
+								</Column>
+							</columns>
+						</Table>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
