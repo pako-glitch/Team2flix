@@ -5,10 +5,11 @@
 					<content>
 						<SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master" orientationChange=".onOrientationChange">
 							<detailPages>
+								 <Page>
 								<VBox>
 									<f:Form id="detail" editable="false">
 										<f:title>
-											<core:Title text="{i18n>TitoloSerie}" icon="sap-icon://employee"/>
+											<core:Title icon="sap-icon://employee" text="{i18n>TitoloSerie}"/>
 										</f:title>
 										<f:layout>
 											<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
@@ -58,19 +59,33 @@
 										</t:columns>
 									</t:Table>
 								</VBox>
+								<footer>
+                                        <OverflowToolbar id="DetFooter">
+                                            <ToolbarSpacer/>
+                                            <Button xmlns="sap.m" text="Delete" id="buttondel" type="Reject" press="onDelete"/>
+                                            <Button xmlns="sap.m" text="Elaborate" id="buttonel" type="Default"/>
+                                   
+                                        </OverflowToolbar>
+                                    </footer>
+                                     </Page>
 							</detailPages>
 							<masterPages>
-								<Page id="master" title="{i18n>titlemaster}" backgroundDesign="List" class="sapUiStdPage" showNavButton="true">
+								<Page id="master" title="" backgroundDesign="List" class="sapUiStdPage" showNavButton="false">
 									<SearchField placeholder="Filter..." search="onFilterInvoices" width="15rem" enableSuggestions="true"/>
 									<List itemPress="onListPressItem" items="{path:'modello>/'}">
 										<items>
 											<StandardListItem custom:to="detail" type="Navigation" title="{modello>titoloserie}" icon="sap-icon://employee" id="item1"/>
 										</items>
 									</List>
+									<footer>
+                                        <OverflowToolbar id="otbFooter">
+                                            <ToolbarSpacer/>
+                                            <Button xmlns="sap.m" text="+" id="button1" custom:wiring="\{'press':\{'navigation':\{'routeName':'View2'\}\}\}" press="action"/>
+                                        </OverflowToolbar>
+                                    </footer>
 								</Page>
 							</masterPages>
 						</SplitApp>
-						<Button xmlns="sap.m" text="+" id="button0" custom:wiring="\{'press':\{'navigation':\{'routeName':'View2'\}\}\}" press="action"/>
 					</content>
 				</Page>
 			</pages>

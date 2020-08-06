@@ -117,7 +117,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"], fun
 
 			oEntry1.POHeader = itemData;
 
-			var oModel1 = new sap.ui.model.odata.v2.ODataModel("/node_dest/serie.xsodata", false);
+			var oModel1 = new sap.ui.model.odata.v2.ODataModel("/filx_dest_dest/xsodata/serie.xsodata", false);
 			this.getView().setModel(oModel1);
 
 			oModel1.create("/POHeader", oEntry1, {

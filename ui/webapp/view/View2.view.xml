@@ -109,10 +109,7 @@
 			</content>
 		</Panel>
 			<Button icon="sap-icon://save" text="Salva" press="onSave"/>
-			<Button text="Annulla"/>
-			<headerContent>
-			    <Button xmlns="sap.m" xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" text="Go to series" id="button4" press="action" action:wiring="\{'press':\{'navigation':\{'routeName':'View1'\}\}\}"/>
-			</headerContent>
+			<Button text="Annulla" press="action" action:wiring="\{'press':\{'navigation':\{'routeName':'View1'\}\}\}" xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
 			</Page>
 		</pages>
 	</App>
