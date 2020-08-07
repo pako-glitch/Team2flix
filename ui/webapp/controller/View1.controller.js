@@ -70,9 +70,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		
 		elaborateButtonOnPress: function(oEvent) {
 			
-			var title = this.getView().byId("titledet").getProperty("text");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("View3", {data: title});
+			var modello = this.getView().getModel("modello");
+			modello = JSON.stringify(modello);
+			
+			oRouter.navTo("View3", {
+				data: modello,
+				model: "modello"
+			});
 			
 		},
 		

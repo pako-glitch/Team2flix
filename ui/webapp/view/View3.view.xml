@@ -71,7 +71,7 @@
 					<Button icon="sap-icon://decrease-line-height" text="{i18n>Modifica}" press="modify" type="Ghost"/></Toolbar>
 				<Panel expandable="true" expanded="true" width="auto" class="sapUiResponsiveMargin">
 					<content>
-						<t:Table id="table" rows="{path: 'puntate>/'}" selectionMode="None">
+						<t:Table id="puntate" rows="{path: 'puntate>/'}" selectionMode="None">
 							<t:columns>
 								<t:Column>
 									<Label text="{i18n>titlepuntata}"/>
@@ -93,6 +93,7 @@
 								</t:Column>
 							</t:columns>
 						</t:Table>
+						
 					</content>
 				</Panel>
 				<Button icon="sap-icon://save" text="{i18n>Salva}" press="onSave"/>

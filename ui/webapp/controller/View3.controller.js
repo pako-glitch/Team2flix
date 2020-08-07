@@ -7,7 +7,7 @@ sap.ui.define([
 	return Controller.extend("Team2flix.ui.controller.View3", {
 
 		onInit: function () {
-			
+
 			var oRouter = new sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("View3").attachPatternMatched(this._onObjectMatched, this);
 			
@@ -15,47 +15,67 @@ sap.ui.define([
 
 		_onObjectMatched: function (oEvent) {
 
-			/*var that = this;
-			var titolo = JSON.parse(oEvent.getParameter("arguments").titolo);
-			this.getView().setModel(new JSONModel(titolo), "titolo");
-			this.getView().bindElement({
-				path: "titolo>/",
-				dataRequested: function () {
-					that.getView().setBusy(true);
-				},
-				dataReceived: function () {
-					that.getView().setBusy(false);
-				}
-			});*/
-			
-			var key = this.getView().bindElement({
-				path: oEvent.getParameter("arguments").data,
-				model: "modello"
-			});
-			
-			var that = this;
-			var	oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
-			var	oModelJson = new sap.ui.model.json.JSONModel();
-			oModel.read("/POHeader('"+key.path+"')", {
-				success: function (oRetrievedResult) {
+			var args = oEvent.getParameter("arguments");
+			var modello = JSON.parse(args.modello);       
+			var datiJSON = new JSONModel(modello);
+			this.getView().setModel(datiJSON, "modello");
 
-					if (oRetrievedResult.results !== 0) {
-						oModelJson.setData(oRetrievedResult.results);
-						that.getView().setModel(oModelJson, "modello");
-						var results = oRetrievedResult;
-						that.getView().setModel(new sap.ui.model.JSON.JSONModel(results), "modello");
+		},
 
-					}
-				}
-			});
+		tableBind: function (oEvent) {
+
+			var oModelTab = this.getView().byId("puntate").getModel();
+			//var oModelSerie = _onObjectMatched();
+			
+			var itemRow = {
+				Episodio: oModelTab.Episodio,
+				Stagione: oModelTab.Stagione,
+				Titoloepisodio: oModelTab.Titoloepisodio
+			};
+			
+			this.getView().byId("input4").setValue(itemRow.Episodio);
+			this.getView().byId("input5").setValue(itemRow.Stagione);
+			this.getView().byId("input6").setValue(itemRow.Titoloepisodio);
 			
 		},
 
 		updateSeriesDetails: function () {
 			
+			var TitoloSerie = this.getView().byId("input1").getValue();
+			var Genere = this.getView().byId("input2").getValue();
+			var Anno = this.getView().byId("input3").getValue();
+			var Regista = this.getView().byId("input7").getValue();
 			
+			var TitoloPuntata = this.getView().byId("input6").getValue();
+			var Episodio = this.getView().byId("input4").getValue();
+			var Stagione = this.getView().byId("input5").getValue();
 			
+			var oEntryPuntata = {
+				titolopuntata: TitoloPuntata,
+				episodio: Episodio,
+				stagione: Stagione
+			};
+			
+			var oEntrySerie = {
+				titoloserie: TitoloSerie,
+				genere: Genere,
+				anno: Anno,
+				regista: Regista
+			};
+			
+			var oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
+			
+			oModel.update("/POHeader", oEntryPuntata, null, {
+				success: function() {},
+				error: function() {}
+			});
+			
+			oModel.update("/POHeader('"+TitoloSerie+"')", oEntrySerie, null, {
+				success: function() {},
+				error: function() {}
+			});
+
 		}
-		
+
 	});
 });

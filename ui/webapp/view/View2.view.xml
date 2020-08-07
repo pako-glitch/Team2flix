@@ -3,7 +3,7 @@
 	<App>
 		<pages>
 			<Page title="{i18n>SerieName}">
-				<Panel expanded="true" headerText="Inserisci informazioni serie" width="auto" class="sapUiResponsiveMargin">
+				<Panel expanded="true" headerText="{i18n>InserisciInformazioniSerie}" width="auto" class="sapUiResponsiveMargin">
 					<content>
 						<f:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form1">
 							<f:formContainers>
@@ -38,7 +38,7 @@
 						</f:Form>
 					</content>
 				</Panel>
-				<Panel expandable="true" expanded="true" headerText="Inserisci informazioni serie" width="auto" class="sapUiResponsiveMargin">
+				<Panel expandable="true" expanded="true" headerText="{i18n>InserisciInformazioniPuntate}" width="auto" class="sapUiResponsiveMargin">
 					<content>
 						<f:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form2">
 							<f:formContainers>

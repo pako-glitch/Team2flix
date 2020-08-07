@@ -206,9 +206,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"], fun
 				var l_titolo = oModel.getProperty("titolo", aItems[iRowIndex].getBindingContext());
 
 				itemData.push({
-					Episodio: l_episodio,
-					Stagione: l_stagione,
-					Titolo: l_titolo
+					episodio: l_episodio,
+					stagione: l_stagione,
+					titolopuntata: l_titolo
 				});
 			}
 			// Get the values of the header input fields
