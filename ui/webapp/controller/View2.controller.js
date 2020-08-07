@@ -95,7 +95,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"], fun
 			// Reset table selection in UI5
 			oTable.removeSelections(true);
 		},
-
 		onSave: function () {
 			//Create all the records added to table via Json model
 			var oTable = this.getView().byId("puntate");
@@ -140,7 +139,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"], fun
 
 			oEntry1.POItem = itemData;
 
-			var oModel1 = new sap.ui.model.odata.v2.ODataModel("/node_dest/serie.xsodata", false);
+			var oModel1 = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
 
 			oModel1.create("/POHeader", oEntry1.POHeader, {
 				method: "POST",
@@ -187,68 +186,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"], fun
 			});
 		},
 
-		/*onSave: function () { (QUELLO VECCHIO !!!!!!!!)
-			//Create all the records added to table via Json model
-			var oTable = this.getView().byId("puntate");
-
-			// Get the table Model
-			var oModel = oTable.getModel();
-
-			// Get Items of the Table
-			var aItems = oTable.getItems();
-
-			// Define an empty Array
-			var itemData = [];
-
-			for (var iRowIndex = 0; iRowIndex < aItems.length; iRowIndex++) {
-				var l_episodio = oModel.getProperty("episodio", aItems[iRowIndex].getBindingContext());
-				var l_stagione = oModel.getProperty("stagione", aItems[iRowIndex].getBindingContext());
-				var l_titolo = oModel.getProperty("titolo", aItems[iRowIndex].getBindingContext());
-
-				itemData.push({
-					Episodio: l_episodio,
-					Stagione: l_stagione,
-					Titolo: l_titolo
-				});
-			}
-			// Get the values of the header input fields
-			var Titolo = this.getView().byId("input1").getValue();
-			var Genere = this.getView().byId("input2").getValue();
-			var Anno = this.getView().byId("input3").getValue();
-			var Regista = this.getView().byId("input7").getValue();
-
-			var oEntry1 = {};
-			oEntry1.titoloserie = Titolo;
-			oEntry1.genere = Genere;
-			oEntry1.anno = Anno;
-			oEntry1.regista = Regista;
-
-			oEntry1.POHeader = itemData;
-
-			var oModel1 = new sap.ui.model.odata.v2.ODataModel("/node_dest/serie.xsodata", false);
-			this.getView().setModel(oModel1);
-
-			oModel1.create("/POHeader", oEntry1, {
-				method: "POST",
-				success: function (oData, oResponse) {
-
-					var successObj = oResponse.data.HandlingUnit;
-					var message = "Batch : " + successObj + "  " + "updated successfully";
-
-					jQuery.sap.require("sap.m.MessageBox");
-
-					sap.m.MessageBox.show(message, {
-						icon: sap.m.MessageBox.Icon.SUCCESS,
-						title: "Backend Table(s) Update Status",
-						actions: [sap.m.MessageBox.Action.OK]
-					});
-				},
-				error: function (oError) {}
-			});
-		},*/
-		/**
-		 *@memberOf XSAprova.ui.controller.View2
-		 */
 		action: function (oEvent) {
 			var that = this;
 			var actionParameters = JSON.parse(oEvent.getSource().data("wiring").replace(/'/g, "\""));

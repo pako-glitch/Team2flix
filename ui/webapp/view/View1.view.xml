@@ -67,29 +67,26 @@
 											</t:columns>
 										</t:Table>
 									</VBox>
-									<footer>
-										<OverflowToolbar id="DetFooter">
-											<ToolbarSpacer/>
-											<Button xmlns="sap.m" text="Delete" id="buttondel" type="Reject" press="onDelete"/>
-											<Button xmlns="sap.m" text="Elaborate" id="buttonel" custom:wiring="\{'press':\{'navigation':\{'routeName':'View3'\}\}\}" press="elaborateButtonOnPress"/>
-										</OverflowToolbar>
-									</footer>
+									<OverflowToolbar id="DetFooter">
+										<ToolbarSpacer/>
+										<Button xmlns="sap.m" text="Delete" id="buttondel" type="Reject" press="onDelete"/>
+										<Button xmlns="sap.m" text="Elaborate" id="buttonel" custom:wiring="\{'press':\{'navigation':\{'routeName':'View3'\}\}\}"
+											press="elaborateButtonOnPress"/>
+									</OverflowToolbar>
 								</Page>
 							</detailPages>
 							<masterPages>
-								<Page id="master" title="{i18n>titlemaster}" backgroundDesign="List" class="sapUiStdPage" showNavButton="true">
+								<Page id="master" title="{i18n>titlemaster}" backgroundDesign="List" class="sapUiStdPage" showNavButton="false">
 									<SearchField placeholder="Filter..." search="onFilterInvoices" width="15rem" enableSuggestions="true"/>
 									<List itemPress="onListPressItem" items="{path: 'modello>/'}" id="list1">
 										<items>
 											<StandardListItem custom:to="detail" type="Navigation" title="{modello>titoloserie}" icon="sap-icon://employee" id="item1"/>
 										</items>
 									</List>
-									<footer>
-										<OverflowToolbar id="otbFooter">
-											<ToolbarSpacer/>
-											<Button xmlns="sap.m" text="+" id="button1" custom:wiring="\{'press':\{'navigation':\{'routeName':'View2'\}\}\}" press="action"/>
-										</OverflowToolbar>
-									</footer>
+									<OverflowToolbar id="otbFooter">
+										<ToolbarSpacer/>
+										<Button xmlns="sap.m" text="+" id="button1" custom:wiring="\{'press':\{'navigation':\{'routeName':'View2'\}\}\}" press="action"/>
+									</OverflowToolbar>
 								</Page>
 							</masterPages>
 						</SplitApp>

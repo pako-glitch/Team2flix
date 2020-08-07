@@ -11,69 +11,64 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			var that = this,
 			oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false),
 			oModelJson = new sap.ui.model.json.JSONModel();
+			
+				oModel.read("/POHeader", {
+					success: function (oRetrievedResult) {
 
-			oModel.read("/POHeader", {
-				success: function (oRetrievedResult) {
-
-					if (oRetrievedResult.results !== 0) {
+						if (oRetrievedResult.results !== 0) {
 						oModelJson.setData(oRetrievedResult.results);
 						that.getView().setModel(oModelJson, "modello");
 
 						var results = oRetrievedResult;
 						that.getView().setModel(new sap.ui.model.JSON.JSONModel(results), "modello");
+						if (results.titoloserie !== undefined) {
+						that.getView().setModel(new sap.ui.model.JSON.JSONModel(results.titoloserie), "modello");
 
-					}
-				},
-				error: function (oError) {
-					MessageToast.show("View1 Error");
-				}
-			});
+						}
+							}},
+								error: function (oError) {
+								MessageToast.show("View1 Error");
+							}
+						});
 
-		},
+							},
 
+							onListPressItem: function (oEvent) {
+
+								this.getView().bindElement({
+									path: oEvent.getParameter("listItem").getBindingContextPath(),
+									model: "modello"
+								});
+
+
+								var that = this;
+								var title = oEvent.getParameter("listItem").getProperty("title");
+								var path = "/POHeader" + "('" + title + "')" + "/POItem";
+
+								var oModelI = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
+								var oModelJSONI = new sap.ui.model.json.JSONModel();
+
+								oModelI.read(path, {
+									success: function (oRetrievedResult) {
+										if (oRetrievedResult.results.length !== 0) {
+											oModelJSONI.setData(oRetrievedResult.results);
+											that.getView().setModel(oModelJSONI, "puntate");
+										}
+									},
+									error: function (oError) {
+										MessageToast.show("View1 Error");
+									}
+								});
+							},
+							
 		onFilterInvoices: function (oEvent) {
 			var that = this;
-			var aFilter = [];
+ 			var aFilter = [];
 			var sQuery = oEvent.getParameter("query");
 			if (sQuery) {
-				aFilter = new Filter("titoloserie", FilterOperator.Contains, sQuery);
+			aFilter = new Filter("titoloserie", FilterOperator.Contains, sQuery);
 			}
 			that.getView().byId("list1").getBinding("items").filter(aFilter, FilterType.Application);
-		},
-
-		onListPressItem: function (oEvent) {
-
-			this.getView().bindElement({
-				path: oEvent.getParameter("listItem").getBindingContextPath(),
-				model: "modello"
-			});
-
-			var that = this;
-			var title = oEvent.getParameter("listItem").getProperty("title");
-			var path = "/POHeader" + "('" + title + "')" + "/POItem";
-
-			var oModelI = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
-			var oModelJSONI = new sap.ui.model.json.JSONModel();
-
-			oModelI.read(path, {
-				success: function (oRetrievedResult) {
-					if (oRetrievedResult.results.length !== 0) {
-						oModelJSONI.setData(oRetrievedResult.results);
-						that.getView().setModel(oModelJSONI, "puntate");
-					}
-				},
-				error: function (oError) {
-					MessageToast.show("View1 Error");
-				}
-			});
-		},
-		
-		elaborateButtonOnPress: function(oEvent) {
-			
-			var title = this.getView().byId("titledet").getProperty("text");
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("View3", {data: title});
-			
 		},
 		
 		onDelete: function () {
@@ -81,7 +76,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
             var title = that.getView().byId("titledet").getProperty("text");          
             var pathH = "/POHeader" + "('" + title + "')";
             
-            var oModel = new sap.ui.model.odata.v2.ODataModel("/node_dest/serie.xsodata", false);
+            var oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
             oModel.setUseBatch(true);
             oModel.remove(pathH, {
                 method: "DELETE",
@@ -94,6 +89,16 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
             });
         },
 
+		
+		elaborateButtonOnPress: function(oEvent) {
+			
+			var title = this.getView().byId("titledet").getProperty("text");
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("View3", {data: title});
+			
+		},
+		
+	
 		action: function (oEvent) {
 
 			var that = this;
