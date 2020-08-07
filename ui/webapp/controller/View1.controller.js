@@ -1,14 +1,16 @@
-sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast"], function (Controller, MessageToast) {
+sap.ui.define(["sap/ui/core/mvc/Controller",
+	"sap/m/MessageToast",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/FilterType"
+], function (Controller, MessageToast, Filter, FilterOperator, FilterType) {
 	"use strict";
 	return Controller.extend("Team2flix.ui.controller.View1", {
 		onInit: function () {
 
 			var that = this,
-				oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false),
-				oModelJson = new sap.ui.model.json.JSONModel();
-
-			// var that = this;
-			// var oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
+			oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false),
+			oModelJson = new sap.ui.model.json.JSONModel();
 
 			oModel.read("/POHeader", {
 				success: function (oRetrievedResult) {
@@ -18,12 +20,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast"], function (Co
 						that.getView().setModel(oModelJson, "modello");
 
 						var results = oRetrievedResult;
-						//var Model = new sap.ui.mode.json.JSONModel();
 						that.getView().setModel(new sap.ui.model.JSON.JSONModel(results), "modello");
-						if (results.titoloserie !== undefined) {
-							that.getView().setModel(new sap.ui.model.JSON.JSONModel(results.titoloserie), "modello");
 
-						}
 					}
 				},
 				error: function (oError) {
@@ -33,6 +31,16 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast"], function (Co
 
 		},
 
+		onFilterInvoices: function (oEvent) {
+			var that = this;
+			var aFilter = [];
+			var sQuery = oEvent.getParameter("query");
+			if (sQuery) {
+				aFilter = new Filter("titoloserie", FilterOperator.Contains, sQuery);
+			}
+			that.getView().byId("list1").getBinding("items").filter(aFilter, FilterType.Application);
+		},
+
 		onListPressItem: function (oEvent) {
 
 			this.getView().bindElement({
@@ -40,16 +48,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast"], function (Co
 				model: "modello"
 			});
 
-			//var oModel = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
-			//oModel.read();
-			//var Model = new sap.ui.mode.json.JSONModel(oModel);
-			//var JsonModel = Model.getJSON();
-			//this.getView().setModel(JsonModel, "modello");
-
 			var that = this;
 			var title = oEvent.getParameter("listItem").getProperty("title");
 			var path = "/POHeader" + "('" + title + "')" + "/POItem";
-			//var key = oEvent.getParameter("listItem").getBindingContextPath(); 
 
 			var oModelI = new sap.ui.model.odata.v2.ODataModel("/flix_dest/xsodata/serie.xsodata", false);
 			var oModelJSONI = new sap.ui.model.json.JSONModel();
@@ -66,14 +67,35 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageToast"], function (Co
 				}
 			});
 		},
-
-		/**
-
+		
+		elaborateButtonOnPress: function(oEvent) {
+			
+			var title = this.getView().byId("titledet").getProperty("text");
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("View3", {data: title});
+			
 		},
-		/**
-		 *@memberOf XSAprova.ui.controller.View1
-		 */
+		
+		onDelete: function () {
+            var that = this;
+            var title = that.getView().byId("titledet").getProperty("text");          
+            var pathH = "/POHeader" + "('" + title + "')";
+            
+            var oModel = new sap.ui.model.odata.v2.ODataModel("/node_dest/serie.xsodata", false);
+            oModel.setUseBatch(true);
+            oModel.remove(pathH, {
+                method: "DELETE",
+                success: function (data) {
+                    MessageToast.show("success");
+                },
+                error: function (e) {
+                    MessageToast.show("error");
+                }
+            });
+        },
+
 		action: function (oEvent) {
+
 			var that = this;
 			var actionParameters = JSON.parse(oEvent.getSource().data("wiring").replace(/'/g, "\""));
 			var eventType = oEvent.getId();

@@ -15,32 +15,49 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"], fun
 		},
 
 		onAdd: function () {
-			// Get the values of the header input fields
-			var epi = this.getView().byId("input4").getValue();
-			var sta = this.getView().byId("input5").getValue();
-			var tit = this.getView().byId("input6").getValue();
 
-			// Push this entry into array and bind it to the table
-			var itemRow = {
-				Episodio: epi,
-				Stagione: sta,
-				Titolo: tit
-			};
+			var eptit = this.getView().byId("input1").getValue();
 
-			var oModel = this.getView().byId("puntate").getModel();
-			var itemData = oModel.getProperty("/data");
-			// Append the data using .push
-			itemData.push(itemRow);
+			if (eptit === "") {
+				var eptitmess = "Title cannot be blank";
+				jQuery.sap.require("sap.m.MessageBox");
+				sap.m.MessageBox.show(eptitmess);
+			} else {
 
-			// Set Model
-			oModel.setData({
-				data: itemData
-			});
+				// Get the values of the header input fields
+				var epi = this.getView().byId("input4").getValue();
+				var sta = this.getView().byId("input5").getValue();
+				var tit = this.getView().byId("input6").getValue();
 
-			// Clear the input fields.
-			this.getView().byId("input4").setValue("");
-			this.getView().byId("input5").setValue("");
-			this.getView().byId("input6").setValue("");
+				if (epi === "" || sta === "") {
+					var titmess = "Episode and Season cannot be blank";
+					jQuery.sap.require("sap.m.MessageBox");
+					sap.m.MessageBox.show(titmess);
+				} else {
+
+					// Push this entry into array and bind it to the table
+					var itemRow = {
+						Episodio: epi,
+						Stagione: sta,
+						Titolo: tit
+					};
+
+					var oModel = this.getView().byId("puntate").getModel();
+					var itemData = oModel.getProperty("/data");
+					// Append the data using .push
+					itemData.push(itemRow);
+
+					// Set Model
+					oModel.setData({
+						data: itemData
+					});
+
+					// Clear the input fields.
+					this.getView().byId("input4").setValue("");
+					this.getView().byId("input5").setValue("");
+					this.getView().byId("input6").setValue("");
+				}
+			}
 		},
 
 		onDelete: function () {
@@ -85,6 +102,97 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"], fun
 
 			// Get the table Model
 			var oModel = oTable.getModel();
+			//Nel caso, getview getmodel
+			// Get Items of the Table
+			var aItems = oTable.getItems();
+
+			// Define an empty Array
+			var itemData = [];
+			var headData = [];
+
+			for (var iRowIndex = 0; iRowIndex < aItems.length; iRowIndex++) {
+				var episodio = oModel.getData().data[iRowIndex].Episodio;
+				var stagione = oModel.getData().data[iRowIndex].Stagione;
+				var titolopuntata = oModel.getData().data[iRowIndex].Titolo;
+
+				itemData.push({
+					Episodio: episodio,
+					Stagione: stagione,
+					Titolo: titolopuntata
+				});
+			}
+			// Get the values of the header input fields
+			var Titolo = this.getView().byId("input1").getValue();
+			var Genere = this.getView().byId("input2").getValue();
+			var Anno = this.getView().byId("input3").getValue();
+			var Regista = this.getView().byId("input7").getValue();
+
+			headData.push({
+				Titolo: Titolo,
+				Genere: Genere,
+				Anno: Anno,
+				Regista: Regista
+			});
+
+			var oEntry1 = {};
+
+			oEntry1.POHeader = headData;
+
+			oEntry1.POItem = itemData;
+
+			var oModel1 = new sap.ui.model.odata.v2.ODataModel("/node_dest/serie.xsodata", false);
+
+			oModel1.create("/POHeader", oEntry1.POHeader, {
+				method: "POST",
+				success: function (oData, oResponse) {
+
+					var successObj = oResponse.data.HandlingUnit;
+					var message = "Batch : " + successObj + "  " + "updated successfully";
+
+					jQuery.sap.require("sap.m.MessageBox");
+
+					sap.m.MessageBox.show(message, {
+						icon: sap.m.MessageBox.Icon.SUCCESS,
+						title: "Backend Table(s) Update Status",
+						actions: [sap.m.MessageBox.Action.OK]
+					});
+				},
+				error: function (oError) {
+					var emessage = "Error when updating";
+					jQuery.sap.require("sap.m.MessageBox");
+					sap.m.MessageBox.show(emessage);
+				}
+			});
+
+			oModel1.create("/POHeader" + "('" + Titolo + ")'", oEntry1.POItem, {
+				method: "POST",
+				success: function (oData, oResponse) {
+
+					var successObj = oResponse.data.HandlingUnit;
+					var message = "Batch : " + successObj + "  " + "updated successfully";
+
+					jQuery.sap.require("sap.m.MessageBox");
+
+					sap.m.MessageBox.show(message, {
+						icon: sap.m.MessageBox.Icon.SUCCESS,
+						title: "Backend Table(s) Update Status",
+						actions: [sap.m.MessageBox.Action.OK]
+					});
+				},
+				error: function (oError) {
+					var emessage = "Error when updating";
+					jQuery.sap.require("sap.m.MessageBox");
+					sap.m.MessageBox.show(emessage);
+				}
+			});
+		},
+
+		/*onSave: function () { (QUELLO VECCHIO !!!!!!!!)
+			//Create all the records added to table via Json model
+			var oTable = this.getView().byId("puntate");
+
+			// Get the table Model
+			var oModel = oTable.getModel();
 
 			// Get Items of the Table
 			var aItems = oTable.getItems();
@@ -117,7 +225,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"], fun
 
 			oEntry1.POHeader = itemData;
 
-			var oModel1 = new sap.ui.model.odata.v2.ODataModel("/filx_dest_dest/xsodata/serie.xsodata", false);
+			var oModel1 = new sap.ui.model.odata.v2.ODataModel("/node_dest/serie.xsodata", false);
 			this.getView().setModel(oModel1);
 
 			oModel1.create("/POHeader", oEntry1, {
@@ -137,7 +245,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"], fun
 				},
 				error: function (oError) {}
 			});
-		},
+		},*/
 		/**
 		 *@memberOf XSAprova.ui.controller.View2
 		 */
